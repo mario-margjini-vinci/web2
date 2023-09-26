@@ -1,0 +1,7 @@
+### Read all movies with File variable
+@baseUrl = http://localhost:3000
+GET {{baseUrl}}/movies
+
+### Read all movies with a minimum duration of 100 minutes
+
+GET {{baseUrl}}/movies?minimum-duration=120
