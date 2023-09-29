@@ -5,3 +5,25 @@ GET {{baseUrl}}/movies
 ### Read all movies with a minimum duration of 100 minutes
 
 GET {{baseUrl}}/movies?minimum-duration=120
+
+### Read a pizza with its ID
+
+GET {{baseUrl}}/movies/1
+
+### Create a movie
+POST {{baseUrl}}/movies
+Content-Type:  application/json
+
+{
+    "title":"Gran Turismo",
+    "duration": 135,
+    "budget": 60,
+    "link":"blablabla"
+}
+### Create a movie which lacks a property
+POST {{baseUrl}}/movies
+Content-Type: application/json
+
+{
+    "title":"Jujutsu Kaisen : 0"
+}

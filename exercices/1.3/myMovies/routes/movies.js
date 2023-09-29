@@ -42,4 +42,41 @@ router.get('/',(req,res,next) =>{
     return res.json(filmsReachingMinimumDuration);
 });
 
+router.get('/:id',(req,res)=>{
+    console.log(`GET /movies/${req.params.id}`);
+    
+    const indexOfFilmFound = MOVIES.findIndex((movie) => movie.id == req.params.id);
+
+    if (indexOfFilmFound < 0) return res.sendStatus(404);
+
+    res.json(MOVIES[indexOfFilmFound]);
+});
+
+router.post('/',(req,res) => {
+    const title = req?.body?.title?.length !== 0 ? req.body.title : undefined;
+    const duration =req?.body?.duration !==0 ? req.body.duration : undefined;
+    const budget =req?.body?.budget !==0 ? req.body.budget : undefined;
+    const link = req?.body?.link?.length !== 0 ? req.body.link : undefined;
+
+    console.log('POST /movies');
+
+    if (!title|| !duration || !budget) return res.sendStatus(400);
+
+    const lastItemIndex = MOVIES?.length !== 0 ? MOVIES.length -1 : undefined;
+    const lastId = lastItemIndex !== undefined ? MOVIES[lastItemIndex]?.id : 0;
+    const nextId = lastId +1;
+
+    const newMovie = {
+        id:nextId,
+        title: title,
+        duration: duration,
+        budget: budget,
+        link:link,
+    };
+
+    MOVIES.push(newMovie);
+
+    res.json(newMovie);
+})
+
 module.exports = router;
