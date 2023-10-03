@@ -36,10 +36,10 @@ router.get('/',(req,res,next) =>{
     if (typeof minimumFilmDuration !=='number' || minimumFilmDuration<=0||!minimumFilmDuration){
         return res.json(MOVIES);
     }
-    const  filmsReachingMinimumDuration = MOVIES.filter(
+    const  MOVIESReachingMinimumDuration = MOVIES.filter(
         (film) => film.duration >= minimumFilmDuration
     );
-    return res.json(filmsReachingMinimumDuration);
+    return res.json(MOVIESReachingMinimumDuration);
 });
 
 router.get('/:id',(req,res)=>{
@@ -104,7 +104,13 @@ router.patch('/:id',(req,res) => {
 
     console.log('POST /movies');
 
-    if((!title && !duration && !budget && !link)|| title?.length === 0 || duration >= 0 || budget >=0 || link?.length==0) return res.sendStatus(400);
+    if (
+        !req.body ||
+        (title !== undefined && !title.trim()) ||
+        (link !== undefined && !link.trim()) ||
+        (duration !== undefined && (typeof req?.body?.duration !== 'number' || duration < 0)) ||
+        (budget !== undefined && (typeof req?.body?.budget !== 'number' || budget < 0))
+      ) return res.sendStatus(400);
 
     const foundIndex =  MOVIES.findIndex(movie => movie.id == req.params.id);
 
@@ -118,6 +124,7 @@ router.patch('/:id',(req,res) => {
 });
 
 router.put('/:id',(req,res)=>{
+    
     console.log(`PUT /movies/${req.params.id}`);
 
     const title =req?.body?.title;
@@ -125,5 +132,40 @@ router.put('/:id',(req,res)=>{
     const budget = req?.body?.budget;
     const link = req?.body?.link;
 
-})
+    if (
+        !req.body ||
+        !title ||
+        !title.trim() ||
+        !link ||
+        !link.trim() ||
+        duration === undefined ||
+        typeof req?.body?.duration !== 'number' ||
+        duration < 0 ||
+        budget === undefined ||
+        typeof req?.body?.budget !== 'number' ||
+        budget < 0
+      )
+        return res.sendStatus(400);
+    
+    const id = req.params.id;
+    const indexOfFilmFound = MOVIES.findIndex((movie) => movie.id == id);    
+    
+    if (indexOfFilmFound < 0) {
+        const newFilm = { id, title, link, duration, budget };
+        MOVIES.push(newFilm);
+        return res.json(newFilm);
+      }
+      const filmPriorToChange = MOVIES[indexOfFilmFound];
+      const objectContainingPropertiesToBeUpdated = req.body;
+    
+      const updatedFilm = {
+        ...filmPriorToChange,
+        ...objectContainingPropertiesToBeUpdated,
+      };
+    
+      MOVIES[indexOfFilmFound] = updatedFilm;
+    
+      return res.json(updatedFilm);
+    });
+    
 module.exports = router;

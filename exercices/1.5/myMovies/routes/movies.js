@@ -79,6 +79,8 @@ router.post('/',(req,res) => {
     MOVIES.push(newMovie);
 
     res.json(newMovie);
-})
+});
+
+
 
 module.exports = router;
