@@ -1,0 +1,50 @@
+### Read all movies with File variable
+@baseUrl = http://localhost:3000
+GET {{baseUrl}}/movies
+
+### Read all movies with a minimum duration of 100 minutes
+
+GET {{baseUrl}}/movies?minimum-duration=120
+
+### Read a pizza with its ID
+
+GET {{baseUrl}}/movies/1
+
+### Create a movie
+POST {{baseUrl}}/movies
+Content-Type:  application/json
+
+{
+    "title":"Gran Turismo",
+    "duration": 135,
+    "budget": 60,
+    "link":"blablabla"
+}
+### Create a movie which lacks a property
+POST {{baseUrl}}/movies
+Content-Type: application/json
+
+{
+    "title":"Jujutsu Kaisen : 0"
+}
+
+### Create a movie which already exists
+POST {{baseUrl}}/movies
+Content-Type: application/json
+
+{
+    "title":"FAST X",
+    "duration": 141,
+    "budget":340,
+    "link":"https://www.imdb.com/title/tt5433140/"
+}
+### Delete movie identified by 2
+DELETE {{baseUrl}}/movies/2
+
+### Update the movie identified by 1
+PATCH {{baseUrl}}/movies/1
+Content-Type: application/json
+
+{
+    "title":"FAST AND FURIOUS 10"
+}
