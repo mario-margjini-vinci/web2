@@ -17,7 +17,7 @@ btn.addEventListener("click",(e)=>{
     counter++;
     if(counter>=10){
         clearTimeout(timeoutId);
-        text.innerText="You win ! You clicked 10 times within 10 sec" ;
+        text.innerText="You win ! You clicked 10 times within 5 sec" ;
         btn.style.display = "none";
     }
 })
