@@ -3,7 +3,7 @@ import './stylesheets/main.css';
 
 Navbar();
 HomePage();
-attachMouseEventToRules
+
 
 
 
@@ -54,20 +54,36 @@ main.innerHTML = `
     <a href="#" class="text-decoration-underline fs-2">Jouer</a>
 </div>
   `;
+  attachMouseEventToRules();
 }
 
 function attachMouseEventToRules(){
     const link = document.querySelector('#RulesClick');
-    link.addEventListener('click',Rules());
+    link.addEventListener('click',Rules);
+}
+
+function attachMouseEventToBack(){
+  const link = document.querySelector('#BackHome');
+  link.addEventListener('click',HomePage);
 }
 
 function Rules(){
     const main = document.querySelector('main');
     main.innerHTML=`
     <div>
-    <h1>Comment Jouer</h1>
+    <h1 class="text-center">Comment Jouer</h1>
+    </div>
+    <div>
+      <p class="text-start">
+        pour jouer il faut repondre aux diffreernejhtjdjhbjb</br>
+        et il faut blalallalalalal
+      </p>
+    </div>
+    <div class = "text-center">
+      <a href="#" id="BackHome" class="text-decoration-underline fs-2">Back</a>
     </div>
     `
+    attachMouseEventToBack();
 }
 
 
