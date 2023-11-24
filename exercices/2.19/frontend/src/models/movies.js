@@ -1,3 +1,5 @@
+import Navigate from "../Components/Router/Navigate";
+
 async function readAllMovies(){
     try {
         const response = await fetch('/api/films');
@@ -13,6 +15,14 @@ async function readAllMovies(){
     }
 };
 
-async function addOneMovie (movie){} movies.push(movie);
+async function addOneMovie (options){
+    const response = await fetch('/api/films', options);
+
+    if(!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+
+    const newPizza = await response.json();
+
+    console.log('New movie added: ', newMovie);
+} ;
 
 export { readAllMovies, addOneMovie };
